@@ -10,24 +10,28 @@ class UserFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
-        $user = new User();
-        $user->setName('Mathieu');
-        $user->setEmail('mathieu.veys@gmail.com');
-        $user->setPassword('mathieuveys');
-        $manager->persist($user);
+        $user1 = new User();
+        $user1->setName('Mathieu');
+        $user1->setEmail('mathieu.veys@gmail.com');
+        $user1->setPassword('mathieuveys');
+        $manager->persist($user1);
 
-        $user = new User();
-        $user->setName('Stéphanie');
-        $user->setEmail('stephanie.percheron@gmail.com');
-        $user->setPassword('stephaniepercheron');
-        $manager->persist($user);
+        $user2 = new User();
+        $user2->setName('Stéphanie');
+        $user2->setEmail('stephanie.percheron@gmail.com');
+        $user2->setPassword('stephaniepercheron');
+        $manager->persist($user2);
 
-        $user = new User();
-        $user->setName('Laurène');
-        $user->setEmail('laurene.flamey@gmail.com');
-        $user->setPassword('laureneflamey');
-        $manager->persist($user);
+        $user3 = new User();
+        $user3->setName('Laurène');
+        $user3->setEmail('laurene.flamey@gmail.com');
+        $user3->setPassword('laureneflamey');
+        $manager->persist($user3);
 
         $manager->flush();
+
+        $this->addReference('user_1', $user1);
+        $this->addReference('user_2', $user2);
+        $this->addReference('user_3', $user3);
     }
 }
