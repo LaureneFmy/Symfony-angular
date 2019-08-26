@@ -1,0 +1,49 @@
+<!-- Editable table -->
+<div class="card">
+        <h3 class="card-header text-center font-weight-bold text-uppercase py-4">Editable table</h3>
+        <div class="card-body">
+          <div id="table" class="table-editable">
+            <span class="table-add float-right mb-3 mr-2">
+              <a class="text-success" (click)="add()">
+                <mdb-icon fas icon="plus" size="2x"></mdb-icon>
+              </a>
+            </span>
+            <table class="table table-bordered table-responsive-md table-striped text-center">
+              <tr>
+                <th class="text-center status">Status</th>
+                <th class="text-center nom">Nom</th>
+                <th class="text-center description">Description</th>
+              </tr>
+              <tr *ngFor="let task of taskList; let id = index">
+                <td>
+                  <span (keyup)="changeValue(id, 'name', $event)" (blur)="updateList(id, 'name', $event)" contenteditable="true">{{task.status}}</span>
+                </td>
+                <td>
+                  <span contenteditable="true" (keyup)="changeValue(id, 'age', $event)" (blur)="updateList(id, 'age', $event)">{{task.title}}</span>
+                </td>
+                <td>
+                  <span contenteditable="true" (keyup)="changeValue(id, 'companyName', $event)" (blur)="updateList(id, 'companyName', $event)">{{task.description}}</span>
+                </td>
+                <td>
+                  <span class="table-up">
+                    <a class="indigo-text">
+                      <mdb-icon fas icon="long-arrow-alt-up"></mdb-icon>
+                    </a>
+                  </span>
+                  <span class="table-down">
+                    <a class="indigo-text">
+                      <mdb-icon fas icon="long-arrow-alt-down"></mdb-icon>
+                    </a>
+                  </span>
+                </td>
+                <td>
+                  <span class="table-remove">
+                    <button type="button" mdbBtn color="danger" rounded="true" size="sm" class="my-0" (click)="remove(id)">Remove</button>
+                  </span>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+      <!-- Editable table -->

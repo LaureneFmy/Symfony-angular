@@ -1,0 +1,29 @@
+@import "../../../styles.scss";
+
+
+.login-register{
+    height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    padding: 15px;
+
+    margin-right: 10%;
+    margin-left: 10%;
+}
+
+.form{
+    margin: 15px;
+    height: 600px;
+    width: 500px;
+    border-radius: 15px;
+}
+
+.login{
+    padding: 5px;
+}
+
+.register{
+    padding: 5px;
+}

@@ -1,0 +1,22 @@
+@import "../../../styles.scss";
+
+header {
+    display: block;
+    width: 100%;
+    position: relative;
+}
+
+footer{
+    display: block;
+    position: relative;
+    width: 100%;
+}
+
+.content-page{
+    top: 100px;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
