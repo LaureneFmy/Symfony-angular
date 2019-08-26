@@ -26,7 +26,7 @@ class TaskRepository extends ServiceEntityRepository
     public function findTaskByUser(int $userId)
     {
         return $this->createQueryBuilder('t')
-            ->andWhere('t.user = :userId')
+            ->Where('t.user = :userId')
             ->setParameter('userId', $userId)
             ->orderBy('t.date', 'ASC')
             ->getQuery()
