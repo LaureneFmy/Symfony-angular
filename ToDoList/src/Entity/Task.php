@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TasksRepository")
  */
-class Tasks
+class Task
 {
     /**
      * @ORM\Id()
@@ -40,6 +40,14 @@ class Tasks
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $updatedAt;
+
+    /**
+     * @var User
+     *
+     * @ORM\ManyToOne(targetEntity="Users", inversedBy="tasks")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
+     */
+    private $user;
 
     public function getId(): ?int
     {
@@ -105,4 +113,22 @@ class Tasks
 
         return $this;
     }
+
+    /**
+     * @return User
+     */
+    public function getUser(): User
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param User $user
+     */
+    public function setUser(User $user): void
+    {
+        $this->user = $user;
+    }
+
+
 }
