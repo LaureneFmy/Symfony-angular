@@ -5,7 +5,8 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\TasksRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\TaskRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Task
 {
@@ -44,10 +45,10 @@ class Task
     /**
      * @var User
      *
-     * @ORM\ManyToOne(targetEntity="Users", inversedBy="tasks")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="User")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
      */
-    private $user;
+    private $user_id;
 
     public function getId(): ?int
     {
@@ -90,45 +91,51 @@ class Task
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    /**
+     * @ORM\PrePersist
+     */
+    public function prePersist()
+    {
+        $this->createdAt = new \DateTime();
+    }
+
+    /**
+     * @ORM\PreUpdate()
+     */
+    public function preUpdate()
+    {
+        $this->updatedAt = new \DateTime();
+    }
+
+    public function getCreatedAt(): ?\DateTime
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    public function getUpdatedAt(): ?\DateTimeInterface
+    public function getUpdatedAt(): ?\DateTime
     {
         return $this->updatedAt;
-    }
-
-    public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
-    {
-        $this->updatedAt = $updatedAt;
-
-        return $this;
     }
 
     /**
      * @return User
      */
-    public function getUser(): User
+    public function getUserId(): ?User
     {
-        return $this->user;
+        return $this->user_id;
     }
 
     /**
-     * @param User $user
+     * @param User $user_id
+     * @return self
      */
-    public function setUser(User $user): void
+    public function setUserId(User $user_id): self
     {
-        $this->user = $user;
+        $this->user_id = $user_id;
+        return $this;
     }
+
+
 
 
 }

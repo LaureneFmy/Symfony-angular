@@ -2,10 +2,11 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\UsersRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  */
 class User
 {
@@ -35,6 +36,13 @@ class User
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
+
+    /**
+     * @var Task[]|ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="Task", mappedBy="user")
+     */
+    private $tasks;
 
     public function getId(): ?int
     {
@@ -77,15 +85,26 @@ class User
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    /**
+     * @ORM\PrePersist
+     */
+    public function prePersist()
+    {
+        $this->createdAt = new \DateTime();
+    }
+
+    public function getCreatedAt(): ?\DateTime
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    /**
+     * @return Task[]|ArrayCollection
+     */
+    public function getTasks()
     {
-        $this->createdAt = $createdAt;
-
-        return $this;
+        return $this->tasks;
     }
+
+
 }
