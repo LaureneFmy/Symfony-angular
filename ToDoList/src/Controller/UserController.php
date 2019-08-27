@@ -14,7 +14,18 @@ use Symfony\Component\Routing\Annotation\Route;
 class UserController extends AbstractController
 {
     /**
-     * @Route("/user/create")
+     * @Route("/", name="user.index")
+     * @param Request $request
+     * @return Response
+     */
+    public function index(Request $request)
+    {
+        return $this->render('user/index.html.twig');
+    }
+
+
+    /**
+     * @Route("/user/create", name="user.create")
      * @param Request $request
      * @return Response
      */
@@ -44,7 +55,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/user/update/{id}")
+     * @Route("/user/update/{id}", name="user.update")
      * @param Request $request
      * @param $id
      * @return Response

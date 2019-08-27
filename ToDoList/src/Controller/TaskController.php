@@ -19,7 +19,7 @@ class TaskController extends AbstractController
 {
 
     /**
-     * @Route("user/{user_id}/task/{id}")
+     * @Route("user/{user_id}/task/{id}", name="task.view")
      * @param $id
      * @return Response
      */
@@ -40,7 +40,7 @@ class TaskController extends AbstractController
     }
 
     /**
-     * @Route("user/{user_id}/tasks")
+     * @Route("user/{user_id}/tasks", name="task.show")
      * @param $user_id
      * @param EntityManagerInterface $em
      * @return Response
@@ -68,7 +68,7 @@ class TaskController extends AbstractController
 
 
     /**
-     * @Route("user/{user_id}/task/delete/{id}")
+     * @Route("user/{user_id}/task/delete/{id}", name="task.delete")
      * @param $id
      * @return RedirectResponse
      */
@@ -87,7 +87,7 @@ class TaskController extends AbstractController
     }
 
     /**
-     * @Route("user/{user_id}/task/update/{id}")
+     * @Route("user/{user_id}/task/update/{id}", name="task.update")
      * @param Request $request
      * @param $id
      * @return RedirectResponse|Response
@@ -120,13 +120,14 @@ class TaskController extends AbstractController
     }
 
     /**
-     * @Route("user/{user_id}/task_create")
+     * @Route("user/{user_id}/task_create", name="task.create")
      * @param Request $request
      * @param EntityManagerInterface $em
+     * @return RedirectResponse
      */
     public function createAction(Request $request, EntityManagerInterface $em)
     {
-        $user = $em->getRepository(User::class)->findOneById($request->request->get('user_id'));
+        $user = $em->getRepository(User::class)->findOneBy($request->request->get('user_id'));
         $task = new Task();
         $task->setName($request->request->get('name'));
         $task->setDescription($request->request->get('description'));

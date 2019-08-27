@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello UserController!{% endblock %}
+{% block title %}Bienvenue !{% endblock %}
 
 {% block body %}
 
@@ -37,7 +37,7 @@
             <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
         </div>
 
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <a type="submit" class="btn btn-primary" href="{{ path('user.create') }}">Submit</a>
 
     </form>
 </div>
