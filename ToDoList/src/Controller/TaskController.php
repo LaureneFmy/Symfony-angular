@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+
 class TaskController extends AbstractController
 
 {
@@ -128,4 +129,9 @@ class TaskController extends AbstractController
             array('form' => $form->createView())
         );
     }
+<<<<<<< HEAD
 }
+=======
+}
+
+>>>>>>> bee35b773bc3f90eacdad4c6db2f67afe9b0b41e

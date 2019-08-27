@@ -3,14 +3,17 @@
     td {
         padding: 10px;
     }
+
     th {
         text-align: left;
     }
 </style>
+
 <h1>All Articles</h1>
+
 {% if tasks is not empty %}
-    <table>
-        <thead>
+<table>
+    <thead>
         <tr>
             <th>Name</th>
             <th>Description</th>
@@ -18,21 +21,24 @@
             <th>Delete</th>
             <th>Update</th>
         </tr>
-        </thead>
-        <tbody>
+    </thead>
+    <tbody>
         {% for task in tasks %}
-            <tr>
-                <td>{{ task.name }}</td>
-                <td>{{ task.description }}</td>
-                <td>{{ task.status}}...</td>
-                <td><a href="delete-task/{{ task.id }}">Delete</a></td>
-                <td><a href="update-task/{{ task.id }}">Update</a></td>
-            </tr>
+        <tr>
+            <td>{{ task.name }}</td>
+            <td>{{ task.description }}</td>
+            <td>{{ task.status}}...</td>
+
+            </td>
+            <td><a href="delete-task/{{ task.id }}">Delete</a></td>
+            <td><a href="update-task/{{ task.id }}">Update</a></td>
+        </tr>
         {% endfor %}
-        </tbody>
-    </table>
+    </tbody>
+</table>
 {% else %}
-    <p>No article found.</p>
+<p>No article found.</p>
 {% endif %}
+
 <br />
 <a href="/create-task">Create New</a>
