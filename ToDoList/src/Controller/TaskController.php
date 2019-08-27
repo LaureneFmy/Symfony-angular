@@ -23,7 +23,8 @@ class TaskController extends AbstractController
      * @param $id
      * @return Response
      */
-    public function viewAction($id) {
+    public function viewAction($id)
+    {
         $task = $this->getDoctrine()
             ->getRepository(Task::class)
             ->find($id);
@@ -41,7 +42,8 @@ class TaskController extends AbstractController
     /**
      * @Route("user/{user_id}/tasks")
      */
-    public function showAction() {
+    public function showAction()
+    {
         $tasks = $this->getDoctrine()->getRepository(User::class)->findAll();
         return $this->render(
             'task/show.html.twig',
@@ -54,7 +56,8 @@ class TaskController extends AbstractController
      * @param $id
      * @return RedirectResponse
      */
-    public function deleteAction($id) {
+    public function deleteAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
         $task = $em->getRepository('App:Task')->find($id);
         if (!$task) {
@@ -73,7 +76,8 @@ class TaskController extends AbstractController
      * @param $id
      * @return RedirectResponse|Response
      */
-    public function updateAction(Request $request, $id) {
+    public function updateAction(Request $request, $id)
+    {
         $em = $this->getDoctrine()->getManager();
         $task = $em->getRepository('App:Task')->find($id);
         if (!$task) {
@@ -106,7 +110,8 @@ class TaskController extends AbstractController
      * @param $id
      * @return RedirectResponse|Response
      */
-    public function createAction(Request $request, EntityManagerInterface $em, $id) {
+    public function createAction(Request $request, EntityManagerInterface $em, $id)
+    {
         $user = $em->getRepository(User::class)->find($id);
         $task = new Task();
         $form = $this->createFormBuilder($task)
@@ -129,9 +134,5 @@ class TaskController extends AbstractController
             array('form' => $form->createView())
         );
     }
-<<<<<<< HEAD
-}
-=======
-}
 
->>>>>>> bee35b773bc3f90eacdad4c6db2f67afe9b0b41e
+}
