@@ -18,7 +18,7 @@ class TaskController extends AbstractController
 {
 
     /**
-     * @Route("/task/{id}")
+     * @Route("user/{user_id}/task/{id}")
      * @param $id
      * @return Response
      */
@@ -38,7 +38,7 @@ class TaskController extends AbstractController
     }
 
     /**
-     * @Route("/tasks")
+     * @Route("user/{user_id}/tasks")
      */
     public function showAction() {
         $tasks = $this->getDoctrine()->getRepository(User::class)->findAll();
@@ -49,7 +49,7 @@ class TaskController extends AbstractController
     }
 
     /**
-     * @Route("task/delete/{id}")
+     * @Route("user/{user_id}/task/delete/{id}")
      * @param $id
      * @return RedirectResponse
      */
@@ -67,7 +67,7 @@ class TaskController extends AbstractController
     }
 
     /**
-     * @Route("/task/update/{id}")
+     * @Route("user/{user_id}/task/update/{id}")
      * @param Request $request
      * @param $id
      * @return RedirectResponse|Response
@@ -93,19 +93,19 @@ class TaskController extends AbstractController
             return $this->redirect('/view-task/' . $id);
         }
         return $this->render(
-            '/edit.html.twig',
+            'task/edit.html.twig',
             array('form' => $form->createView())
         );
     }
 
     /**
-     * @Route("user/{id}/task_create")
+     * @Route("user/{user_id}/task_create")
      * @param Request $request
      * @param EntityManagerInterface $em
-     * @param int $id
+     * @param $id
      * @return RedirectResponse|Response
      */
-    public function createAction(Request $request, EntityManagerInterface $em, int $id) {
+    public function createAction(Request $request, EntityManagerInterface $em, $id) {
         $user = $em->getRepository(User::class)->find($id);
         $task = new Task();
         $form = $this->createFormBuilder($task)
