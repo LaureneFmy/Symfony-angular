@@ -10,6 +10,16 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Task
 {
+    public const TO_DO='To do';
+    public const IN_PROGRESS='In progress';
+    public const DONE='Done';
+
+    public const TYPES=[
+        self::TO_DO,
+        self::IN_PROGRESS,
+        self::DONE,
+    ];
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -116,6 +126,7 @@ class Task
     {
         return $this->updatedAt;
     }
+
 
     /**
      * @return User

@@ -1,0 +1,29 @@
+<style>
+    th,
+    td {
+        padding: 10px;
+    }
+    th {
+        text-align: right;
+    }
+</style>
+<h1>Task Created or Modified</h1>
+<table>
+    <tbody>
+    <tr>
+        <th>Name:</th>
+        <td>{{ task.name }}</td>
+    </tr>
+    <tr>
+        <th>description:</th>
+        <td>{{ task.description }}</td>
+    </tr>
+    <tr>
+        <th>Status :</th>
+        <td>{{ task.status }}</td>
+    </tr>
+    </tbody>
+</table>
+<br />
+<a href="/show-task">View All</a> -
+<a href="/update-task/{{ task.id }}">Modify</a>

@@ -3,8 +3,8 @@
 namespace App\Repository;
 
 use App\Entity\Task;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Persistence\ManagerRegistry;
+use App\Entity\User;
+use Doctrine\ORM\EntityRepository;
 
 /**
  * @method Task|null find($id, $lockMode = null, $lockVersion = null)
@@ -12,12 +12,8 @@ use Doctrine\Common\Persistence\ManagerRegistry;
  * @method Task[]    findAll()
  * @method Task[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class TaskRepository extends ServiceEntityRepository
+class TaskRepository extends EntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
-    {
-        parent::__construct($registry, Task::class);
-    }
 
     /**
     * @param int $userId
@@ -34,15 +30,4 @@ class TaskRepository extends ServiceEntityRepository
         ;
     }
 
-    /*
-    public function findOneBySomeField($value): ?Tasks
-    {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }
