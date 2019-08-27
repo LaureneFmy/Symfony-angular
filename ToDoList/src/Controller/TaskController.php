@@ -41,15 +41,31 @@ class TaskController extends AbstractController
 
     /**
      * @Route("user/{user_id}/tasks")
+     * @param $user_id
+     * @param EntityManagerInterface $em
+     * @return Response
      */
-    public function showAction()
+    public function showAction($user_id, EntityManagerInterface $em) : Response
     {
-        $tasks = $this->getDoctrine()->getRepository(User::class)->findAll();
+        $taskList = $em->getRepository(Task::class)->findBy(
+            array('user_id'  => $user_id)
+        );
+        $array=[];
+        foreach ($taskList as $task) {
+            array_push($array,[
+                'id'            => $task->getId(),
+                'name'          => $task->getName(),
+                'description'   => $task->getDescription(),
+                'status'        => $task->getStatus(),
+                'user_id'       => $task->getUserId()->getId()
+            ]);
+        }
         return $this->render(
             'task/show.html.twig',
-            array('tasks' => $tasks)
+            array('tasks' => $array)
         );
     }
+
 
     /**
      * @Route("user/{user_id}/task/delete/{id}")
@@ -82,7 +98,7 @@ class TaskController extends AbstractController
         $task = $em->getRepository('App:Task')->find($id);
         if (!$task) {
             throw $this->createNotFoundException(
-                'There are no articles with the following id: ' . $id
+                'There are no tasks with the following id: ' . $id
             );
         }
         $form = $this->createFormBuilder($task)
@@ -107,32 +123,18 @@ class TaskController extends AbstractController
      * @Route("user/{user_id}/task_create")
      * @param Request $request
      * @param EntityManagerInterface $em
-     * @param $id
-     * @return RedirectResponse|Response
      */
-    public function createAction(Request $request, EntityManagerInterface $em, $id)
+    public function createAction(Request $request, EntityManagerInterface $em)
     {
-        $user = $em->getRepository(User::class)->find($id);
+        $user = $em->getRepository(User::class)->findOneById($request->request->get('user_id'));
         $task = new Task();
-        $form = $this->createFormBuilder($task)
-            ->add('name', TextType::class)
-            ->add('description', TextType::class)
-            ->add('status', TextType::class)
-            ->add('save', SubmitType::class, array('label' => 'New Task'))
-            ->getForm();
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted()) {
-            $task = $form->getData();
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($task);
-            $em->flush();
-            return $this->redirect('/task/{id}' . $task->getId());
-        }
-        return $this->render(
-            'task/edit.html.twig',
-            array('form' => $form->createView())
-        );
+        $task->setName($request->request->get('name'));
+        $task->setDescription($request->request->get('description'));
+        $task->setStatus($request->request->get('status'));
+        $task->setUserId($user);
+        $em->persist($task);
+        $em->flush();
+        return $this->redirect('/task/{id}' . $task->getId());
     }
 
 }

@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class UserController extends AbstractController
 {
     /**
-     * @Route("/user/create", name="create_user")
+     * @Route("/user/create")
      * @param Request $request
      * @return Response
      */
@@ -44,7 +44,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/user/update/{id}", name="update_user")
+     * @Route("/user/update/{id}")
      * @param Request $request
      * @param $id
      * @return Response
@@ -52,7 +52,7 @@ class UserController extends AbstractController
     public function updateUser(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
-        $user = $em->getRepository(User::class)->find($id);
+        $user = $em->getRepository('App:User')->find($id);
         if (!$user) {
             throw $this->createNotFoundException(
                 'There are no user with the following id: ' . $id
